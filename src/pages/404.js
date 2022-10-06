@@ -16,7 +16,7 @@ import FooterIllustrations from 'src/views/pages/misc/FooterIllustrations'
 // ** Styled Components
 const BoxWrapper = styled(Box)(({ theme }) => ({
   [theme.breakpoints.down('md')]: {
-    width: '90vw'
+    width: '100vw'
   }
 }))
 
