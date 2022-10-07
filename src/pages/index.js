@@ -21,6 +21,16 @@ import StatisticsCard from 'src/views/dashboard/StatisticsCard'
 import WeeklyOverview from 'src/views/dashboard/WeeklyOverview'
 import DepositWithdraw from 'src/views/dashboard/DepositWithdraw'
 import SalesByCountries from 'src/views/dashboard/SalesByCountries'
+import { NextResponse, NextRequest } from 'next/server'
+
+export async function middleware(req, ev) {
+  const { pathname } = req.nextUrl
+  if (pathname == '/') {
+    return NextResponse.redirect('/pages/login')
+  }
+
+  return NextResponse.next()
+}
 
 const Dashboard = () => {
   return (
