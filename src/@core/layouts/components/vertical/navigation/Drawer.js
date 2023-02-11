@@ -22,39 +22,10 @@ const SwipeableDrawer = styled(MuiSwipeableDrawer)({
 
 const Drawer = props => {
   // ** Props
-  const {
-    hidden,
-    children,
-    navHover,
-    navWidth,
-    settings,
-    navVisible,
-    setNavHover,
-    navMenuProps,
-    setNavVisible,
-    collapsedNavWidth,
-    navigationBorderWidth
-  } = props
+  const { hidden, children, navWidth, navVisible, setNavVisible } = props
 
   // ** Hook
   const theme = useTheme()
-
-  // ** Vars
-  const { mode, navCollapsed } = settings
-
-  const drawerColors = () => {
-    if (mode === 'semi-dark') {
-      return {
-        backgroundColor: 'customColors.darkBg',
-        '& .MuiTypography-root, & svg': {
-          color: `rgba(${theme.palette.customColors.dark}, 0.87)`
-        }
-      }
-    } else
-      return {
-        backgroundColor: 'background.default'
-      }
-  }
 
   // Drawer Props for Mobile & Tablet screens
   const MobileDrawerProps = {
@@ -66,50 +37,26 @@ const Drawer = props => {
     }
   }
 
-  // Drawer Props for Laptop & Desktop screens
+  // Drawer Props for Desktop screens
   const DesktopDrawerProps = {
     open: true,
     onOpen: () => null,
-    onClose: () => null,
-    onMouseEnter: () => {
-      setNavHover(true)
-    },
-    onMouseLeave: () => {
-      setNavHover(false)
-    }
+    onClose: () => null
   }
-  let userNavMenuStyle = {}
-  let userNavMenuPaperStyle = {}
-  if (navMenuProps && navMenuProps.sx) {
-    userNavMenuStyle = navMenuProps.sx
-  }
-  if (navMenuProps && navMenuProps.PaperProps && navMenuProps.PaperProps.sx) {
-    userNavMenuPaperStyle = navMenuProps.PaperProps.sx
-  }
-  const userNavMenuProps = Object.assign({}, navMenuProps)
-  delete userNavMenuProps.sx
-  delete userNavMenuProps.PaperProps
 
   return (
     <SwipeableDrawer
       className='layout-vertical-nav'
       variant={hidden ? 'temporary' : 'permanent'}
       {...(hidden ? { ...MobileDrawerProps } : { ...DesktopDrawerProps })}
-      PaperProps={{
-        sx: {
-          ...drawerColors(),
-          width: navCollapsed && !navHover ? collapsedNavWidth : navWidth,
-          ...(!hidden && navCollapsed && navHover ? { boxShadow: 9 } : {}),
-          borderRight: navigationBorderWidth === 0 ? 0 : `${navigationBorderWidth}px solid ${theme.palette.divider}`,
-          ...userNavMenuPaperStyle
-        },
-        ...navMenuProps?.PaperProps
-      }}
+      PaperProps={{ sx: { width: navWidth } }}
       sx={{
-        width: navCollapsed ? collapsedNavWidth : navWidth,
-        ...userNavMenuStyle
+        width: navWidth,
+        '& .MuiDrawer-paper': {
+          borderRight: 0,
+          backgroundColor: theme.palette.background.default
+        }
       }}
-      {...userNavMenuProps}
     >
       {children}
     </SwipeableDrawer>

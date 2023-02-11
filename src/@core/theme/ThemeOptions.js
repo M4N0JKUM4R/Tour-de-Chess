@@ -1,9 +1,6 @@
 // ** MUI Theme Provider
 import { deepmerge } from '@mui/utils'
 
-// ** User Theme Options
-import UserThemeOptions from 'src/layouts/UserThemeOptions'
-
 // ** Theme Override Imports
 import palette from './palette'
 import spacing from './spacing'
@@ -12,57 +9,43 @@ import breakpoints from './breakpoints'
 
 const themeOptions = settings => {
   // ** Vars
-  const { skin, mode, direction, themeColor } = settings
+  const { mode, themeColor } = settings
 
-  // ** Create New object before removing user component overrides and typography objects from userThemeOptions
-  const userThemeConfig = Object.assign({}, UserThemeOptions())
-  const userFontFamily = userThemeConfig.typography?.fontFamily
-
-  // ** Remove component overrides and typography objects from userThemeOptions
-  delete userThemeConfig.components
-  delete userThemeConfig.typography
-
-  const mergedThemeConfig = deepmerge(
-    {
-      direction,
-      palette: palette(mode === 'semi-dark' ? 'light' : mode, skin, themeColor),
-      typography: {
-        fontFamily:
-          userFontFamily ||
-          [
-            'Inter',
-            'sans-serif',
-            '-apple-system',
-            'BlinkMacSystemFont',
-            '"Segoe UI"',
-            'Roboto',
-            '"Helvetica Neue"',
-            'Arial',
-            'sans-serif',
-            '"Apple Color Emoji"',
-            '"Segoe UI Emoji"',
-            '"Segoe UI Symbol"'
-          ].join(',')
-      },
-      shadows: shadows(mode),
-      ...spacing,
-      breakpoints: breakpoints(),
-      shape: {
-        borderRadius: 6
-      },
-      mixins: {
-        toolbar: {
-          minHeight: 64
-        }
-      }
+  const themeConfig = {
+    palette: palette(mode, themeColor),
+    typography: {
+      fontFamily: [
+        'Inter',
+        'sans-serif',
+        '-apple-system',
+        'BlinkMacSystemFont',
+        '"Segoe UI"',
+        'Roboto',
+        '"Helvetica Neue"',
+        'Arial',
+        'sans-serif',
+        '"Apple Color Emoji"',
+        '"Segoe UI Emoji"',
+        '"Segoe UI Symbol"'
+      ].join(',')
     },
-    userThemeConfig
-  )
+    shadows: shadows(mode),
+    ...spacing,
+    breakpoints: breakpoints(),
+    shape: {
+      borderRadius: 6
+    },
+    mixins: {
+      toolbar: {
+        minHeight: 64
+      }
+    }
+  }
 
-  return deepmerge(mergedThemeConfig, {
+  return deepmerge(themeConfig, {
     palette: {
       primary: {
-        ...mergedThemeConfig.palette[themeColor]
+        ...themeConfig.palette[themeColor]
       }
     }
   })

@@ -1,8 +1,15 @@
-// ** Custom Icon Import
-import Icon from 'src/@core/components/icon'
+const UserIcon = props => {
+  // ** Props
+  const { icon, iconProps } = props
+  const IconTag = icon
+  let styles
 
-const UserIcon = ({ icon, ...rest }) => {
-  return <Icon icon={icon} {...rest} />
+  /* styles = {
+      color: 'red',
+      fontSize: '2rem'
+    } */
+  // @ts-ignore
+  return <IconTag {...iconProps} style={{ ...styles }} />
 }
 
 export default UserIcon

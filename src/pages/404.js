@@ -16,7 +16,7 @@ import FooterIllustrations from 'src/views/pages/misc/FooterIllustrations'
 // ** Styled Components
 const BoxWrapper = styled(Box)(({ theme }) => ({
   [theme.breakpoints.down('md')]: {
-    width: '90vw'
+    width: '100vw'
   }
 }))
 
@@ -55,9 +55,11 @@ const Error404 = () => {
           <Typography variant='body2'>We couldn&prime;t find the page you are looking for.</Typography>
         </BoxWrapper>
         <Img height='487' alt='error-illustration' src='/images/pages/404.png' />
-        <Button href='/' component={Link} variant='contained' sx={{ px: 5.5 }}>
-          Back to Home
-        </Button>
+        <Link passHref href='/'>
+          <Button component='a' variant='contained' sx={{ px: 5.5 }}>
+            Back to Home
+          </Button>
+        </Link>
       </Box>
       <FooterIllustrations image={<TreeIllustration alt='tree' src='/images/pages/tree.png' />} />
     </Box>

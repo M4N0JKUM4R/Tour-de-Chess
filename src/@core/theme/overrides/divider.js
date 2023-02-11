@@ -3,20 +3,7 @@ const Divider = theme => {
     MuiDivider: {
       styleOverrides: {
         root: {
-          '&:not(.MuiDivider-vertical)': {
-            marginTop: theme.spacing(2),
-            marginBottom: theme.spacing(2)
-          }
-        },
-        middle: {
-          '&:not(.MuiDivider-vertical)': {
-            marginLeft: theme.spacing(5),
-            marginRight: theme.spacing(5)
-          },
-          '&.MuiDivider-vertical': {
-            marginTop: theme.spacing(2),
-            marginBottom: theme.spacing(2)
-          }
+          margin: `${theme.spacing(2)} 0`
         }
       }
     }

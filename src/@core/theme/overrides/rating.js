@@ -3,10 +3,7 @@ const Rating = theme => {
     MuiRating: {
       styleOverrides: {
         root: {
-          color: theme.palette.warning.main,
-          '& svg': {
-            flexShrink: 0
-          }
+          color: theme.palette.warning.main
         }
       }
     }
