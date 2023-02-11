@@ -5,12 +5,6 @@ const Pagination = theme => {
   return {
     MuiPaginationItem: {
       styleOverrides: {
-        root: {
-          '&.Mui-selected:not(.Mui-disabled):not(.MuiPaginationItem-textPrimary):not(.MuiPaginationItem-textSecondary):hover':
-            {
-              backgroundColor: `rgba(${theme.palette.customColors.main}, 0.12)`
-            }
-        },
         outlined: {
           borderColor: `rgba(${theme.palette.customColors.main}, 0.22)`
         },

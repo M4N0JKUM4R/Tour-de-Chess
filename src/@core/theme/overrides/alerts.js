@@ -15,8 +15,8 @@ const Alert = theme => {
             marginBottom: theme.spacing(1.6)
           },
           '& a': {
-            color: 'inherit',
-            fontWeight: 500
+            fontWeight: 500,
+            color: 'inherit'
           }
         },
         standardSuccess: {
@@ -100,7 +100,8 @@ const Alert = theme => {
           }
         },
         filled: {
-          fontWeight: 400
+          fontWeight: 400,
+          color: theme.palette.common.white
         }
       }
     }

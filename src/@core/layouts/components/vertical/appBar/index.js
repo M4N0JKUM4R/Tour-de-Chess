@@ -1,7 +1,11 @@
 // ** MUI Imports
 import { styled, useTheme } from '@mui/material/styles'
+import useScrollTrigger from '@mui/material/useScrollTrigger'
 import MuiAppBar from '@mui/material/AppBar'
 import MuiToolbar from '@mui/material/Toolbar'
+
+// ** Util Import
+import { hexToRGBA } from 'src/@core/utils/hex-to-rgba'
 
 const AppBar = styled(MuiAppBar)(({ theme }) => ({
   transition: 'none',
@@ -23,31 +27,58 @@ const Toolbar = styled(MuiToolbar)(({ theme }) => ({
   borderBottomRightRadius: 10,
   padding: `${theme.spacing(0)} !important`,
   minHeight: `${theme.mixins.toolbar.minHeight}px !important`,
-  transition:
-    'padding .25s ease-in-out, box-shadow .25s ease-in-out, backdrop-filter .25s ease-in-out, background-color .25s ease-in-out'
+  transition: 'padding .25s ease-in-out, box-shadow .25s ease-in-out, backdrop-filter .25s ease-in-out'
 }))
 
 const LayoutAppBar = props => {
   // ** Props
-  const { settings, verticalAppBarContent: userVerticalAppBarContent } = props
+  const { settings, appBarProps, appBarContent: userAppBarContent } = props
 
   // ** Hooks
   const theme = useTheme()
+  const scrollTrigger = useScrollTrigger({ threshold: 0, disableHysteresis: true })
 
   // ** Vars
-  const { contentWidth } = settings
+  const { skin, appBar, appBarBlur, contentWidth } = settings
+
+  const appBarFixedStyles = () => {
+    return {
+      px: `${theme.spacing(5)} !important`,
+      boxShadow: skin === 'bordered' ? 0 : 3,
+      ...(appBarBlur && { backdropFilter: 'blur(8px)' }),
+      backgroundColor: hexToRGBA(theme.palette.background.paper, appBarBlur ? 0.85 : 1),
+      ...(skin === 'bordered' && { border: `1px solid ${theme.palette.divider}`, borderTopWidth: 0 })
+    }
+  }
+  if (appBar === 'hidden') {
+    return null
+  }
+  let userAppBarStyle = {}
+  if (appBarProps && appBarProps.sx) {
+    userAppBarStyle = appBarProps.sx
+  }
+  const userAppBarProps = Object.assign({}, appBarProps)
+  delete userAppBarProps.sx
 
   return (
-    <AppBar elevation={0} color='default' className='layout-navbar' position='static'>
+    <AppBar
+      elevation={0}
+      color='default'
+      className='layout-navbar'
+      sx={{ ...userAppBarStyle }}
+      position={appBar === 'fixed' ? 'sticky' : 'static'}
+      {...userAppBarProps}
+    >
       <Toolbar
         className='navbar-content-container'
         sx={{
+          ...(appBar === 'fixed' && scrollTrigger && { ...appBarFixedStyles() }),
           ...(contentWidth === 'boxed' && {
             '@media (min-width:1440px)': { maxWidth: `calc(1440px - ${theme.spacing(6)} * 2)` }
           })
         }}
       >
-        {(userVerticalAppBarContent && userVerticalAppBarContent(props)) || null}
+        {(userAppBarContent && userAppBarContent(props)) || null}
       </Toolbar>
     </AppBar>
   )

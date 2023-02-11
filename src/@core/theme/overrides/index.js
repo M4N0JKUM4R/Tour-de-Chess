@@ -18,38 +18,41 @@ import MuiDivider from './divider'
 import MuiPopover from './popover'
 import MuiTooltip from './tooltip'
 import MuiBackdrop from './backdrop'
+import MuiDataGrid from './dataGrid'
 import MuiSnackbar from './snackbar'
 import MuiSwitches from './switches'
 import MuiTimeline from './timeline'
 import MuiAccordion from './accordion'
 import MuiPagination from './pagination'
 import MuiTypography from './typography'
+import MuiAutocomplete from './autocomplete'
 import MuiToggleButton from './toggleButton'
-import MuiDateTimePicker from './dateTimePicker'
 
-const Overrides = theme => {
+const Overrides = (theme, settings) => {
+  const { skin } = settings
+  const button = MuiButton(theme)
   const chip = MuiChip(theme)
   const list = MuiList(theme)
-  const menu = MuiMenu(theme)
   const tabs = MuiTabs(theme)
-  const cards = MuiCard(theme)
   const input = MuiInput(theme)
   const tables = MuiTable(theme)
   const alerts = MuiAlerts(theme)
-  const button = MuiButton(theme)
   const rating = MuiRating(theme)
   const avatars = MuiAvatar(theme)
   const divider = MuiDivider(theme)
-  const dialog = MuiDialog(theme)
-  const popover = MuiPopover(theme)
+  const menu = MuiMenu(theme, skin)
   const tooltip = MuiTooltip(theme)
+  const cards = MuiCard(theme, skin)
   const backdrop = MuiBackdrop(theme)
-  const snackbar = MuiSnackbar(theme)
+  const dataGrid = MuiDataGrid(theme)
   const switches = MuiSwitches(theme)
   const timeline = MuiTimeline(theme)
   const accordion = MuiAccordion(theme)
+  const dialog = MuiDialog(theme, skin)
   const pagination = MuiPagination(theme)
-  const dateTimePicker = MuiDateTimePicker(theme)
+  const popover = MuiPopover(theme, skin)
+  const snackbar = MuiSnackbar(theme, skin)
+  const autocomplete = MuiAutocomplete(theme, skin)
 
   return Object.assign(
     chip,
@@ -69,6 +72,7 @@ const Overrides = theme => {
     popover,
     tooltip,
     backdrop,
+    dataGrid,
     MuiPaper,
     snackbar,
     switches,
@@ -76,8 +80,8 @@ const Overrides = theme => {
     accordion,
     MuiSelect,
     pagination,
+    autocomplete,
     MuiTypography,
-    dateTimePicker,
     MuiToggleButton
   )
 }

@@ -1,12 +1,10 @@
-// ** Util Import
-import { hexToRGBA } from 'src/@core/utils/hex-to-rgba'
-
-const Dialog = theme => {
+const Dialog = (theme, skin) => {
   return {
     MuiDialog: {
       styleOverrides: {
         paper: {
-          boxShadow: theme.shadows[6],
+          boxShadow: theme.shadows[skin === 'bordered' ? 0 : 6],
+          ...(skin === 'bordered' && { border: `1px solid ${theme.palette.divider}` }),
           '&:not(.MuiDialog-paperFullScreen)': {
             '@media (max-width:599px)': {
               margin: theme.spacing(4),
@@ -37,53 +35,7 @@ const Dialog = theme => {
           },
           '& + .MuiDialogActions-root': {
             paddingTop: 0
-          },
-
-          // Styling for Mobile Date Picker starts
-          '& .PrivatePickersToolbar-root': {
-            padding: theme.spacing(4, 5),
-            color: theme.palette.primary.contrastText,
-            backgroundColor: theme.palette.primary.main,
-            '& .MuiTypography-root': {
-              color: theme.palette.primary.contrastText
-            },
-            '& span.MuiTypography-overline': {
-              fontSize: '1rem',
-              lineHeight: '24px',
-              letterSpacing: '0.15px'
-            },
-            '& ~ div[class^="css-"] > div[class^="css-"]': {
-              marginTop: theme.spacing(6),
-              marginBottom: theme.spacing(6),
-              '& > div[class^="css-"]': {
-                backgroundColor:
-                  theme.palette.mode === 'light' ? theme.palette.grey[50] : theme.palette.background.default,
-                '& ~ .MuiIconButton-root span.MuiTypography-caption': {
-                  color: 'inherit'
-                }
-              }
-            },
-            '& .PrivateTimePickerToolbar-hourMinuteLabel': {
-              alignItems: 'center',
-              '& > .MuiButton-root span.MuiTypography-root': {
-                fontWeight: 300,
-                lineHeight: '72px',
-                fontSize: '3.75rem',
-                letterSpacing: '-0.5px'
-              },
-              '& > .MuiTypography-root': {
-                color: hexToRGBA(theme.palette.primary.contrastText, 0.54),
-                '& + .MuiButton-root > span.MuiTypography-root': {
-                  color: hexToRGBA(theme.palette.primary.contrastText, 0.54)
-                }
-              }
-            },
-            '& .PrivateTimePickerToolbar-ampmSelection span.MuiTypography-root:not(.Mui-selected)': {
-              color: hexToRGBA(theme.palette.primary.contrastText, 0.54)
-            }
           }
-
-          // Styling for Mobile Date Picker ends
         }
       }
     },

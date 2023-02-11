@@ -1,10 +1,11 @@
-const Popover = theme => {
+const Popover = (theme, skin) => {
   return {
     MuiPopover: {
       styleOverrides: {
         root: {
           '& .MuiPopover-paper': {
-            boxShadow: theme.shadows[6]
+            boxShadow: theme.shadows[skin === 'bordered' ? 0 : 6],
+            ...(skin === 'bordered' && { border: `1px solid ${theme.palette.divider}` })
           }
         }
       }

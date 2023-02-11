@@ -70,7 +70,7 @@ const Timeline = theme => {
           '& svg': { color: theme.palette.info.main }
         },
         outlinedGrey: {
-          '& svg': { color: theme.palette.grey[500] }
+          '& svg': { color: theme.palette.grey[400] }
         }
       }
     }
